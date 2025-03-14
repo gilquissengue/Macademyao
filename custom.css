@@ -1,0 +1,68 @@
+/* Import Bootstrap CSS */
+@import url('bootstrap.min.css');
+
+/* Custom Styles */
+
+/* Global Styles */
+body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #007bff;
+}
+
+.navbar .navbar-brand,
+.navbar .nav-link {
+    color: #fff;
+}
+
+.navbar .nav-link:hover {
+    color: #d4d4d4;
+}
+
+/* Footer */
+.footer {
+    background-color: #343a40;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 576px) {
+    .navbar .nav-link {
+        font-size: 14px;
+    }
+
+    .footer {
+        font-size: 14px;
+    }
+}
+
+/* Custom Components */
+.card-custom {
+    border: 1px solid #007bff;
+    border-radius: 0.25rem;
+}
+
+.card-custom .card-header {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.card-custom .card-body {
+    background-color: #f8f9fa;
+}
+
+/* Utility Classes */
+.text-primary-custom {
+    color: #007bff !important;
+}
+
+.bg-primary-custom {
+    background-color: #007bff !important;
+}

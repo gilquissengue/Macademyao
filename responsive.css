@@ -1,0 +1,69 @@
+/* Normal desktop :1200px. */
+@media (min-width: 1200px) and (max-width: 1500px) {
+    .container {
+        width: 80%;
+        margin: 0 auto;
+    }
+    .header, .footer {
+        padding: 20px;
+    }
+    .content {
+        font-size: 18px;
+    }
+}
+
+/* Normal desktop :992px. */
+@media (min-width: 992px) and (max-width: 1200px) {
+    .container {
+        width: 85%;
+        margin: 0 auto;
+    }
+    .header, .footer {
+        padding: 15px;
+    }
+    .content {
+        font-size: 16px;
+    }
+}
+
+/* Tablet desktop :768px. */
+@media (min-width: 768px) and (max-width: 991px) {
+    .container {
+        width: 90%;
+        margin: 0 auto;
+    }
+    .header, .footer {
+        padding: 10px;
+    }
+    .content {
+        font-size: 14px;
+    }
+}
+
+/* small mobile :320px. */
+@media (max-width: 767px) {
+    .container {
+        width: 95%;
+        margin: 0 auto;
+    }
+    .header, .footer {
+        padding: 5px;
+    }
+    .content {
+        font-size: 12px;
+    }
+}
+
+/* Large Mobile :480px. */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    .container {
+        width: 450px;
+        margin: 0 auto;
+    }
+    .header, .footer {
+        padding: 10px;
+    }
+    .content {
+        font-size: 14px;
+    }
+}
