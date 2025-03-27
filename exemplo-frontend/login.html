@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money Academy - Login Permanente</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .error {
+            color: #e74c3c;
+            margin-top: 10px;
+        }
+        
+        .success {
+            color: #27ae60;
+            margin-top: 10px;
+        }
+        
+        #loading {
+            display: none;
+            margin-top: 15px;
+        }
+        
+        #login-form {
+            display: block;
+        }
+        
+        #dashboard {
+            display: none;
+            text-align: left;
+        }
+        
+        #email-display {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        /* Indicador de status de conexão */
+        .status-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: white;
+        }
+        
+        .status-online {
+            background-color: #27ae60;
+        }
+        
+        .status-offline {
+            background-color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <!-- Indicador de status de conexão -->
+    <div id="status-indicator" class="status-indicator status-offline">Verificando conexão...</div>
+
+    <div class="container">
+        <!-- Formulário de Login -->
+        <div id="login-form">
+            <h1>Money Academy</h1>
+            <p>Entre com seu e-mail autorizado</p>
+            
+            <input type="email" id="email" placeholder="Seu e-mail" required>
+            <button id="login-button">Entrar</button>
+            
+            <div id="error-message" class="error"></div>
+            <div id="success-message" class="success"></div>
+            <div id="loading">Processando...</div>
+        </div>
+        
+        <!-- Dashboard -->
+        <div id="dashboard">
+            <h1>Dashboard</h1>
+            <p id="email-display"></p>
+            <div id="dashboard-content">
+                <p>Bem-vindo ao Money Academy! Você está logado <strong>permanentemente</strong>.</p>
+                <p>Sua sessão continuará mesmo que feche o navegador ou desligue o dispositivo.</p>
+                <p>Você só sairá quando clicar explicitamente no botão abaixo.</p>
+            </div>
+            <button id="logout-button">Sair</button>
+        </div>
+    </div>
+
+    <script>
+        // URL base da API (altere para seu servidor)
+        const API_URL = 'http://localhost:3000';
+        
+        // Elementos DOM
+        const loginForm = document.getElementById('login-form');
+        const dashboard = document.getElementById('dashboard');
+        const emailInput = document.getElementById('email');
+        const loginButton = document.getElementById('login-button');
+        const logoutButton = document.getElementById('logout-button');
+        const errorMessage = document.getElementById('error-message');
+        const successMessage = document.getElementById('success-message');
+        const loading = document.getElementById('loading');
+        const emailDisplay = document.getElementById('email-display');
+        const statusIndicator = document.getElementById('status-indicator');
+        
+        // Verificar conexão com o servidor periodicamente
+        async function verificarConexaoServidor() {
+            try {
+                const response = await fetch(`${API_URL}/`, { 
+                    method: 'GET',
+                    // Adiciona um parâmetro de timestamp para evitar cache
+                    headers: { 'Cache-Control': 'no-cache' }
+                });
+                
+                if (response.ok) {
+                    statusIndicator.textContent = 'Servidor online';
+                    statusIndicator.className = 'status-indicator status-online';
+                    return true;
+                } else {
+                    statusIndicator.textContent = 'Servidor offline';
+                    statusIndicator.className = 'status-indicator status-offline';
+                    return false;
+                }
+            } catch (error) {
+                statusIndicator.textContent = 'Servidor offline';
+                statusIndicator.className = 'status-indicator status-offline';
+                return false;
+            }
+        }
+        
+        // Verificar conexão a cada 30 segundos
+        setInterval(verificarConexaoServidor, 30000);
+        verificarConexaoServidor();
+        
+        // Verificar se já existe um token ao carregar a página
+        window.addEventListener('DOMContentLoaded', verificarAutenticacao);
+        
+        // Função para fazer login
+        loginButton.addEventListener('click', fazerLogin);
+        // Também permite pressionar Enter no campo de email
+        emailInput.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') {
+                fazerLogin();
+            }
+        });
+        
+        async function fazerLogin() {
+            const email = emailInput.value.trim();
+            
+            if (!email || !email.includes('@')) {
+                errorMessage.textContent = 'Por favor, insira um e-mail válido.';
+                return;
+            }
+            
+            // Mostrar loading
+            loginButton.disabled = true;
+            loading.style.display = 'block';
+            errorMessage.textContent = '';
+            successMessage.textContent = '';
+            
+            try {
+                const response = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Salvar o token permanentemente
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('usuario', JSON.stringify(data.usuario));
+                    
+                    // Exibir mensagem de sucesso
+                    successMessage.textContent = 'Login realizado com sucesso!';
+                    
+                    // Mostrar dashboard imediatamente
+                    mostrarDashboard();
+                } else {
+                    // Exibir mensagem de erro
+                    errorMessage.textContent = data.error || 'Erro ao fazer login.';
+                }
+            } catch (error) {
+                errorMessage.textContent = 'Erro ao conectar ao servidor. Verifique sua conexão de internet.';
+                console.error('Erro:', error);
+            } finally {
+                // Esconder loading
+                loading.style.display = 'none';
+                loginButton.disabled = false;
+            }
+        }
+        
+        // Função para logout
+        logoutButton.addEventListener('click', () => {
+            // Remover token e dados do usuário
+            localStorage.removeItem('token');
+            localStorage.removeItem('usuario');
+            sessionStorage.removeItem('token');
+            
+            // Para garantir total limpeza, limpe também cookies relacionados
+            document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            
+            // Voltar para a tela de login
+            mostrarLogin();
+        });
+        
+        // Função para verificar se o usuário já está autenticado
+        async function verificarAutenticacao() {
+            const token = localStorage.getItem('token');
+            
+            if (!token) {
+                // Não há token, mostrar login
+                mostrarLogin();
+                return;
+            }
+            
+            try {
+                // Tenta verificar localmente primeiro (para ser mais rápido)
+                const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+                if (usuario.email) {
+                    // Já existe um usuário no localStorage, mostrar dashboard imediatamente
+                    mostrarDashboard();
+                    
+                    // Em paralelo, verificar com o servidor (sem bloquear a interface)
+                    verificarTokenComServidor(token);
+                    return;
+                }
+                
+                // Se não tiver usuário no localStorage, verifica com o servidor
+                await verificarTokenComServidor(token);
+                
+            } catch (error) {
+                console.error('Erro ao verificar autenticação:', error);
+                mostrarLogin();
+            }
+        }
+        
+        // Função para verificar o token com o servidor
+        async function verificarTokenComServidor(token) {
+            try {
+                const response = await fetch(`${API_URL}/auth/verificar`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (response.ok) {
+                    // Token válido, mostrar dashboard
+                    mostrarDashboard();
+                } else {
+                    // Token inválido, mostrar login
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('usuario');
+                    mostrarLogin();
+                }
+            } catch (error) {
+                console.error('Erro ao verificar token com servidor:', error);
+                // Em caso de erro de conexão, mantém o usuário logado se já tiver dados
+                const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+                if (usuario.email) {
+                    mostrarDashboard();
+                } else {
+                    mostrarLogin();
+                }
+            }
+        }
+        
+        // Função para mostrar a tela de login
+        function mostrarLogin() {
+            loginForm.style.display = 'block';
+            dashboard.style.display = 'none';
+            emailInput.value = '';
+            errorMessage.textContent = '';
+            successMessage.textContent = '';
+        }
+        
+        // Função para mostrar o dashboard
+        function mostrarDashboard() {
+            const usuario = JSON.parse(localStorage.getItem('usuario') || '{}');
+            
+            // Atualizar email no dashboard
+            emailDisplay.textContent = `Usuário: ${usuario.email || 'Desconhecido'}`;
+            
+            // Esconder login e mostrar dashboard
+            loginForm.style.display = 'none';
+            dashboard.style.display = 'block';
+        }
+    </script>
+</body>
+</html> 

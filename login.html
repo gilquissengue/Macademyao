@@ -1,212 +1,412 @@
 <!DOCTYPE html>
 <html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login - Money Academy</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        body {
-            display: flex;
-            height: 100vh;
-            align-items: center;
-            justify-content: center;
-            background: #fff;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+      body {
+        display: flex;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+      }
+      .container {
+        display: flex;
+        width: 80%;
+        max-width: 900px;
+        background: #fff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .left {
+        background: linear-gradient(135deg, #e85d04, #fb8500);
+        color: white;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+      }
+      .left h2 {
+        margin-bottom: 10px;
+      }
+      .left p {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .left button {
+        background: transparent;
+        border: 2px solid white;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+      }
+      .left button:hover {
+        background: white;
+        color: #e85d04;
+      }
+      .right {
+        padding: 40px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .input-group {
+        width: 100%;
+        margin-bottom: 15px;
+        position: relative;
+      }
+      .input-group label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+      }
+      .input-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .toggle-password {
+        position: absolute;
+        right: 10px;
+        top: 35px;
+        cursor: pointer;
+      }
+      .button {
+        width: 100%;
+        padding: 10px;
+        background: linear-gradient(135deg, #e85d04, #fb8500);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background 0.3s ease;
+      }
+      .button:hover {
+        background: linear-gradient(135deg, #fb8500, #e85d04);
+      }
+      .link {
+        margin-top: 10px;
+        font-size: 14px;
+      }
+      .link a {
+        color: #e85d04;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .link a p {
+        text-align: center;
+      }
+      .error-message {
+        color: red;
+        font-size: 14px;
+        margin-top: 5px;
+        display: none;
+      }
+      @media (max-width: 768px) {
         .container {
-            display: flex;
-            width: 80%;
-            max-width: 900px;
-            background: #fff;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
+          flex-direction: column;
         }
         .left {
-            background: linear-gradient(135deg, #e85d04, #fb8500);
-            color: white;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            flex: 1;
+          display: none;
         }
-        .left h2 {
-            margin-bottom: 10px;
-        }
-        .left p {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .left button {
-            background: transparent;
-            border: 2px solid white;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-        }
-        .left button:hover {
-            background: white;
-            color: #e85d04;
-        }
-        .right {
-            padding: 40px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .input-group {
-            width: 100%;
-            margin-bottom: 15px;
-            position: relative;
-        }
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #333;
-        }
-        .input-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .toggle-password {
-            position: absolute;
-            right: 10px;
-            top: 35px;
-            cursor: pointer;
-        }
-        .button {
-            width: 100%;
-            padding: 10px;
-            background: linear-gradient(135deg, #e85d04, #fb8500);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background 0.3s ease;
-        }
-        .button:hover {
-            background: linear-gradient(135deg, #fb8500, #e85d04);
-        }
-        .link {
-            margin-top: 10px;
-            font-size: 14px;
-        }
-        .link a {
-            color: #e85d04;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .link a p {
-            text-align: center;
-        }
-        .error-message {
-            color: red;
-            font-size: 14px;
-            margin-top: 5px;
-            display: none;
-        }
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-            .left {
-                display: none;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <div class="left">
-            <h2>Estude sem sair de casa!</h2>
-            <p>Milhares de pessoas já estão aqui. Faça login e descubra um mundo de possibilidades.</p>
-            <a href="registrar.html"><button>Criar conta</button></a>
+      <div class="left">
+        <h2>Estude sem sair de casa!</h2>
+        <p>
+          Milhares de pessoas já estão aqui. Faça login e descubra um mundo de
+          possibilidades.
+        </p>
+        <a href="registrar.html"><button>Criar conta</button></a>
+      </div>
+      <div class="right">
+        <div class="logo">
+          <a href="index.html"><img src="favicon.png" alt="Logo" /></a>
         </div>
-        <div class="right">
-            <div class="logo">
-                <a href="index.html"><img src="favicon.png" alt="Logo"/></a>
-            </div>
-            <div class="input-group">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" placeholder="Digite seu e-mail" required />
-            </div>
-            <div class="input-group">
-                <label for="password">Senha</label>
-                <input type="password" id="password" placeholder="Digite sua senha" required autocomplete="off" />
-                <span class="toggle-password" onclick="togglePassword()">👁️</span>
-            </div>
-            <p id="error-message" class="error-message"></p>
-            <button class="button" id="login-btn">ENTRAR</button>
-            <div class="link">
-                <a href="password.html"><p>Esqueceu a senha?</p></a>
-                <p>Não possui conta? <a href="registrar.html">Crie uma agora!</a></p>
-            </div>
+        <div class="input-group">
+          <label for="email">E-mail</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Digite seu e-mail"
+            required
+          />
         </div>
+        <div class="input-group">
+          <label for="password">Senha</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="Digite sua senha"
+            required
+            autocomplete="off"
+          />
+          <span class="toggle-password" onclick="togglePassword()">👁️</span>
+        </div>
+        <p id="error-message" class="error-message"></p>
+        <button class="button" id="login-btn">ENTRAR</button>
+        <div class="link">
+          <a href="password.html"><p>Esqueceu a senha?</p></a>
+          <p>Não possui conta? <a href="registrar.html">Crie uma agora!</a></p>
+        </div>
+      </div>
     </div>
 
     <script>
-       // Mostrar ou ocultar senha
-       function togglePassword() {
-            let passwordField = document.getElementById("password");
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-            } else {
-                passwordField.type = "password";
+      document.addEventListener("DOMContentLoaded", () => {
+        // Verifica se o usuário já está logado e redireciona para o dashboard
+        const storedEmail = localStorage.getItem("authenticatedEmail");
+
+        // Removendo verificação automática para evitar recargas e loops
+        // Não faremos mais redirecionamento automático aqui
+
+        // Lista de emails autorizados que terão acesso direto
+        const allowedEmails = [
+          "Comte0217@gmail.com",
+          "deoliveirafilo6@gmail.com",
+          "micmc390@gmail.com",
+          "darioastrovibe@gmail.com",
+          "domingoscalei53@gmail.com",
+          "carlosmac482@gmail.com",
+          "zagebento@hotmail.com",
+          "nzuzimbemba11@gmail.com",
+          "enoquesachicolamaliti@gmail.com",
+          "manuellucasandre42@gmail.com",
+          "afonsoadilson568@gmail.com",
+          "gilbertoquissengue@gmail.com",
+          "joaomiguelnicolau92@gmail.com",
+          "daliasimaogarcia@gmail.com",
+          "mirandasimaol2010@gmail.com",
+          "albertoselundo@gmail.com",
+          "djamilarad9@gmail.com",
+          "franciscoteca42@gmail.com",
+          "chanelnahenda8@gmail.com",
+          "Gracieteluis0@gmail.com",
+          "Anitapedrocapngala@gmail.com",
+          "belarminacarlad@gmail.com",
+          "idrissmonteiro19@gmail.com",
+          "caculorosario54@gmail.com",
+          "djimary20@gmail.com",
+          "Pedrocapolopc3@gmail.com",
+          "beuvaniolourenco30@gmail.com",
+          "terencioprata@gmail.com",
+          "firminotoni11@gmail.com",
+          "celestinoalex111@gmail.com",
+          "fernandocesar61@gmail.com",
+          "mjoycemabiala@gmail.com",
+          "fernandocesar61@gmail.com",
+          "jacobsoriano313@gmail.com",
+          "marcelinomanuel663@gmail.com",
+          "morenogilson2024@gmail.com",
+          "Osvaldofernando770@gmail.com",
+          "luxocubanzamoreira@gmail.com",
+          "faustinoseque0@gmail.com",
+          "esteladiakenda@gmail.com",
+          "Siprianopuati45@gmail.com",
+          "fellvanza13@gmail.com",
+          "Fernandobino@gmail.com",
+          "faustinoseque0@gmail.com",
+          "leticiafitela@gmail.com",
+          "kudimuena.augusto@gmail.com",
+          "vladimiromutekaao@gmail.com",
+          "Ccahaxia242@gmail.com",
+          "esteladiakenda@gmail.com",
+          "Fernandobino@gmail.com",
+          "marcelinomanuel663@gmail.com",
+          "mjoycemabiala@gmail.com",
+          "jeremiassaraiva64@gmail.com",
+          "silvestreandresf8@gmail.com",
+          "joaomoraisp78@gmail.com",
+          "Jrgmnlpereira@gmail.com",
+          "fellvanza13@gmail.com",
+          "bernardotwapita@gmeil.com",
+          "bernardotwapita@gmeil.com",
+          "cefora52@gmail.com",
+          "Carlosassola@gmail.com",
+          "Antoniovontadev@gmail.com",
+          "josesimaojoseantonio@gmail.com",
+          "josesimaojoseantonio@gmail.com",
+          "cufabrunadecufa@gmail.com",
+          "Pauloramiro223@icloud.com",
+          "estefanialourencoe@gmail.com",
+          "Siprianopuati45@gmail.com",
+          "juliaopedro528@gmail.com",
+          "androdejesus93@gmail.com",
+          "monalizagolden88@gmail.com",
+          "flexalberto78@gmail.com",
+          "martavieira052005@gmail.com",
+          "franciscosilva@gmail.com",
+          "dorcasnataniela24@gmail.com",
+          "mariofrancesballerman@gmail.com",
+          "mariofrancesballerman@gmail.com",
+          "dulciomorzao@gmail.com",
+          "joanacamueleluis@gmail.com",
+          "adonaisamuel@gmail.com",
+          "isaac@gmail.com",
+          "feliciacandumbo52@gmail.com",
+          "morenacondicoes98@gmail.com",
+          "dadivangolab@gmail.com",
+          "Sulcompanylda@Gmail.com",
+          "hermenegildoa074@gmail.com",
+          "jujuvivalda@gmail.com",
+          "messiassola19@gmail.com",
+          "Henriquescalei45@gmail.com",
+          "domilsonsachimuma@gmail.com",
+          "auriosangabi@icloud.com",
+          "felisbertazuar@gmail.com",
+          "gordoboycapapinha@gmail.com",
+          "juliaopatricia3@gmail.com",
+          "singlejoao0@gmail.com"
+        ];
+
+        // Normaliza a lista de e-mails permitidos para comparação
+        const normalizedAllowedEmails = allowedEmails.map(email =>
+          email.trim().toLowerCase()
+        );
+
+        document
+          .getElementById("login-btn")
+          .addEventListener("click", async (e) => {
+            e.preventDefault();
+            const email = document
+              .getElementById("email")
+              .value.trim()
+              .toLowerCase();
+            const password = document.getElementById("password").value;
+            const errorElement = document.getElementById("error-message");
+            errorElement.style.display = "none";
+
+            // Validação básica
+            if (!email || !email.includes("@")) {
+              errorElement.textContent = "⚠️ Digite um e-mail válido";
+              errorElement.style.display = "block";
+              return;
             }
-        }
 
-        // Evento para fazer login
-        document.getElementById("login-btn").addEventListener("click", async function (event) {
-            event.preventDefault();
-
-            let email = document.getElementById("email").value.trim();
-            let password = document.getElementById("password").value.trim();
-            let errorMessage = document.getElementById("error-message");
-
-            if (!email || !password) {
-                errorMessage.textContent = "Preencha todos os campos!";
-                errorMessage.style.display = "block";
-                return;
+            // Validação de senha (exigir senha para qualquer usuário)
+            if (!password) {
+              errorElement.textContent = "⚠️ Digite sua senha";
+              errorElement.style.display = "block";
+              return;
             }
 
+            // Validação de comprimento mínimo da senha (4 caracteres)
+            if (password.length < 4) {
+              errorElement.textContent =
+                "⚠️ A senha deve ter pelo menos 4 caracteres";
+              errorElement.style.display = "block";
+              return;
+            }
+
+            // Verifica se o e-mail está na lista de permitidos
+            if (normalizedAllowedEmails.includes(email)) {
+              // Para e-mails autorizados, qualquer senha é aceita, desde que tenha sido digitada
+
+              // Simula um pequeno atraso para parecer que está verificando
+              errorElement.textContent = "⏳ Verificando...";
+              errorElement.style.display = "block";
+              errorElement.style.color = "#e85d04"; // Cor laranja para indicar processamento
+
+              setTimeout(() => {
+                // Mostra mensagem de sucesso
+                alert(
+                  "✅ Login realizado com sucesso!\n\nBem-vindo à Money Academy."
+                );
+
+                // Configura persistência
+                localStorage.setItem("authenticatedEmail", email);
+
+                // Redireciona para o dashboard
+                window.location.href = "dashboard.html";
+              }, 1200);
+
+              return;
+            }
+
+            // Se não estiver na lista local, simula uma verificação na API
             try {
-                let response = await fetch("https://macademy-api-nj20.onrender.com/auth/login", {
+              errorElement.textContent = "⏳ Verificando...";
+              errorElement.style.display = "block";
+              errorElement.style.color = "#e85d04";
+
+              let responseOk = false;
+
+              try {
+                const response = await fetch(
+                  "https://macademy-api.onrender.com/auth/login",
+                  {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ email, password })
-                });
+                    headers: {
+                      "Content-Type": "application/json",
+                      Accept: "application/json",
+                    },
+                    credentials: "include",
+                    body: JSON.stringify({ email, password }),
+                  }
+                );
 
-                let data = await response.json();
+                const data = await response.json();
+                responseOk = response.ok && data.success;
 
-                if (response.ok) {
-                    localStorage.setItem("token", data.token);
-                    alert("Login bem-sucedido!");
-                    window.location.href = "dashboard.html";
-                } else {
-                    errorMessage.textContent = data.msg || "Credenciais inválidas!";
-                    errorMessage.style.display = "block";
+                if (responseOk) {
+                  localStorage.setItem("authenticatedEmail", email);
+                  alert(
+                    "✅ Login realizado com sucesso!\n\nBem-vindo à Money Academy."
+                  );
+                  window.location.href = "dashboard.html";
+                  return;
                 }
+              } catch (networkErr) {
+                console.log("Verificando apenas autorização local");
+              }
+
+              setTimeout(() => {
+                errorElement.style.color = "red";
+                errorElement.textContent =
+                  "🔒 Acesso não autorizado. E-mail ou senha incorretos.";
+                errorElement.style.display = "block";
+              }, 1500);
             } catch (error) {
-                console.error("Erro ao conectar com a API", error);
-                errorMessage.textContent = "Erro de conexão. Tente novamente!";
-                errorMessage.style.display = "block";
+              setTimeout(() => {
+                errorElement.style.color = "red";
+                errorElement.textContent =
+                  "🔒 Acesso não autorizado. Verifique suas credenciais.";
+                errorElement.style.display = "block";
+              }, 1500);
             }
-        });
+          });
+
+        // Função para alternar a visibilidade da senha
+        window.togglePassword = function () {
+          const passwordInput = document.getElementById("password");
+          const type =
+            passwordInput.getAttribute("type") === "password"
+              ? "text"
+              : "password";
+          passwordInput.setAttribute("type", type);
+        };
+      });
     </script>
-</body>
+  </body>
 </html>

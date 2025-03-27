@@ -7,174 +7,7 @@
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <title>Cadastro - Money Academy</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        body {
-            display: flex;
-            height: 100vh;
-            align-items: center;
-            justify-content: center;
-            background: #fff;
-        }
-        .container {
-            display: flex;
-            width: 80%;
-            max-width: 900px;
-            background: #fff;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        .left {
-            background: linear-gradient(135deg, #E85D04, #FB8500);
-            color: white;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            flex: 1;
-        }
-        .left h2 {
-            margin-bottom: 10px;
-        }
-        .left p {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .left button {
-            background: transparent;
-            border: 2px solid white;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-        }
-        .left button:hover {
-            background: white;
-            color: #E85D04;
-        }
-        .right {
-            padding: 40px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .logo img {
-            width: 40px;
-        }
-        .logo span {
-            font-size: 24px;
-            font-weight: bold;
-            color: #161A1D;
-        }
-        .input-group {
-            width: 100%;
-            margin-bottom: 15px;
-        }
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #333;
-        }
-        .input-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .button {
-            width: 100%;
-            padding: 10px;
-            background: linear-gradient(135deg, #E85D04, #FB8500);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background 0.3s ease;
-        }
-        .button:hover {
-            background: linear-gradient(135deg, #FB8500, #E85D04);
-        }
-        .link {
-            margin-top: 10px;
-            font-size: 14px;
-        }
-        .link a {
-            color: #E85D04;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-            .left {
-                display: none;
-            }
-        }
-        .card {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            text-align: center;
-            width: 80%;
-            max-width: 400px;
-        }
-        .card img {
-            width: 100px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-        }
-        .card h2 {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        .card p {
-            font-size: 16px;
-            margin-bottom: 20px;
-            color: #666;
-        }
-        .card a {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: #E85D04;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 16px;
-        }
-        .card button {
-            background: #E85D04;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .card button:hover {
-            background: #FB8500;
-        }
+        /* Seus estilos CSS aqui */
     </style>
 </head>
 <body>
@@ -200,7 +33,16 @@
                 <label for="password">Senha</label>
                 <input type="password" id="password" placeholder="Digite sua senha">
             </div>
+            <div class="input-group">
+                <label for="confirmpassword">Confirmar Senha</label>
+                <input type="password" id="confirmpassword" placeholder="Confirme sua senha">
+            </div>
             <button class="button" id="register-btn">Cadastrar</button>
+            <div class="link">
+                <p>Já possui conta? <a href="login.html">Faça login!</a></p>
+            </div>
+            <!-- Adicione esta div para exibir mensagens -->
+            <div id="message" style="margin-top: 10px; color: red;"></div>
         </div>
     </div>
 
@@ -212,9 +54,49 @@
         <p><strong>CONTA: 189492810 10 001</strong></p>
         <p><strong>IBAN: 0040.0000.8949.2810.1012.3</strong></p>
         <p><strong>EXPRESS: 929060265</strong></p>
-        <a href="https://wa.me/244954099287">Clique aqui para falar com o suporte</a>
+        <a href="http://wa.me/244954179989">Clique aqui para falar com o suporte</a>
         <button onclick="document.getElementById('approval-card').style.display='none'">Fechar</button>
     </div>
-    <script src="app.js"></script>
+
+    <script>
+        document.getElementById('register-btn').addEventListener('click', async () => {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmpassword = document.getElementById('confirmpassword').value;
+
+            // Verifica se as senhas coincidem
+            if (password !== confirmpassword) {
+                document.getElementById('message').innerText = 'As senhas não conferem!';
+                return;
+            }
+
+            // Envia os dados para a API
+            try {
+                const response = await fetch('https://macademy-api.onrender.com/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, email, password, confirmpassword }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Exibe a mensagem de sucesso
+                    document.getElementById('message').innerText = data.msg;
+                    // Exibe o card de aprovação
+                    document.getElementById('approval-card').style.display = 'block';
+                } else {
+                    // Exibe a mensagem de erro retornada pela API
+                    document.getElementById('message').innerText = data.msg;
+                }
+            } catch (error) {
+                console.error('Erro ao registrar:', error);
+                document.getElementById('message').innerText = 'Erro ao conectar com o servidor. Tente novamente mais tarde.';
+            }
+        });
+    </script>
 </body>
 </html>
