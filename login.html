@@ -175,12 +175,6 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        // Verifica se o usuário já está logado e redireciona para o dashboard
-        const storedEmail = localStorage.getItem("authenticatedEmail");
-
-        // Removendo verificação automática para evitar recargas e loops
-        // Não faremos mais redirecionamento automático aqui
-
         // Lista de emails autorizados que terão acesso direto
         const allowedEmails = [
           "Comte0217@gmail.com",
@@ -232,6 +226,7 @@
           "azevedomonizaz@gmail.com",
           "skussumola@gmail.com",
           "loimiramandell@gmail.com",
+          "donanapaulobapti430@gmail.com",
           "Pedrocapolopc3@gmail.com",
           "beuvaniolourenco30@gmail.com",
           "terencioprata@gmail.com",
@@ -275,14 +270,13 @@
           "ndalaroberto850@gmail.com",
           "Domingoscapengue01@gmail.com",
           "edusachinguarsolinha@gmail.com",
-           "lucombow@gmail.com",
           "aventurasdoventura@gmail.com",
           "anacletofrancisco06@gmail.com",
           "joaomanuelvumbi@gmail.com",
           "conceicaoabraao624@gmail.com",
           "Benjamimdesousa302@gmail.com",
           "joaomanuelvumbi@gmail.com",
-          "joaoeliassapaloelias@gmail.com",  
+          "joaoeliassapaloelias@gmail.com",
           "erafaelelias184@gmail.com",
           "ruthpitrazinga28@gmail.com",
           "Genesisremanescente@gmail.com",
@@ -313,18 +307,14 @@
           "silvestreandresf8@gmail.com",
           "joaomoraisp78@gmail.com",
           "Jrgmnlpereira@gmail.com",
-          "fellvanza13@gmail.com",
-          "bernardotwapita@gmeil.com",
           "bernardotwapita@gmeil.com",
           "cefora52@gmail.com",
           "Carlosassola@gmail.com",
           "Antoniovontadev@gmail.com",
           "josesimaojoseantonio@gmail.com",
-          "josesimaojoseantonio@gmail.com",
           "cufabrunadecufa@gmail.com",
           "Pauloramiro223@icloud.com",
           "estefanialourencoe@gmail.com",
-          "Siprianopuati45@gmail.com",
           "juliaopedro528@gmail.com",
           "androdejesus93@gmail.com",
           "monalizagolden88@gmail.com",
@@ -332,7 +322,6 @@
           "martavieira052005@gmail.com",
           "franciscosilva@gmail.com",
           "dorcasnataniela24@gmail.com",
-          "mariofrancesballerman@gmail.com",
           "mariofrancesballerman@gmail.com",
           "dulciomorzao@gmail.com",
           "joanacamueleluis@gmail.com",
@@ -358,34 +347,14 @@
           "joaodanielsimao344@gmail.com",
           "Darioedmilson41@gmail.com",
           "josezau80@outlook.com",
-          "lucombow@gmail.com",
-          "manelaufrancisco@gmeil.com",
-          "carlosnelsonandre63@gmail.com",
-          "manuelponda@gemeil.com",
-          "acassoma1413@gmail.com",
-          "dasolutionsprestacaodeservicos@gmail.com",
-          "eema5034@gmail.com",
-          "mamonalutubatop@gmail.com",
-          "vigariobumba3@gmail.com",
-          "mauviramanuelvina@gmail.com",
-          "mangumbalajoanafocolamangumbal@gmail.com",
-          "Urianminvopolen@gmail.com",
-          "teixeiramirian498@gmail.com",
-          "antoniodinhohossi22@gmail.com",
-          "joelsontandala398@gmail.com",
-          "armindocassinda418@gmail.com",
-          "dasolutionsprestacaodeservicos@gmail.com",
-          "Virgiliowapota@gmail.com",
-          "gordoboycapapinha@gmail.com",
-          "juliaopatricia3@gmail.com",
-          "singlejoao0@gmail.com",
-          "edusachinguarsolinha@gmail.com"
+          "azevedoluanda@gmail.com", // Novo
+          "emilioamaralb97@gmail.com" // Novo
         ];
 
         // Normaliza a lista de e-mails permitidos para comparação
-        const normalizedAllowedEmails = allowedEmails.map(email =>
+        const normalizedAllowedEmails = [...new Set(allowedEmails.map(email =>
           email.trim().toLowerCase()
-        );
+        ))];
 
         document
           .getElementById("login-btn")
