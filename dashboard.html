@@ -7,37 +7,62 @@
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
     <title>Money Academy - Cursos</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .menu-button {
+            background: linear-gradient(145deg, #e85d04 0%, #f48c06 100%);
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            letter-spacing: 0.8px;
+            min-height: 62px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .menu-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(232, 93, 4, 0.3);
+        }
+    </style>
 </head>
-<body class="bg-[#e85d04] text-white">
+<body class="bg-white">
     <div class="flex flex-col min-h-screen">
-        <!-- Nova seção de navegação -->
-        <div class="bg-white p-8 rounded-lg shadow-lg m-6">
+        <!-- Card Principal -->
+        <div class="max-w-2xl mx-auto p-8 m-6">
             <!-- Foto do Perfil -->
-            <div class="flex justify-center mb-8">
-                <img src="gggg.jpg" alt="Foto do Perfil" class="w-32 h-32 rounded-full object-cover">
+            <div class="flex justify-center mb-10">
+                <div class="text-center">
+                    <img src="gggg.jpg" alt="Foto do Perfil" class="w-32 h-32 rounded-full object-cover border-4 border-[#e85d04] shadow-lg mb-2">
+                </div>
             </div>
 
-            <!-- Botões -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
-                <a href="https://drive.google.com/drive/folders/1NEU9nNOFVCmZfAPNsG5W2yHYKYrMSxjk" class="bg-blue-600 text-white py-3 px-6 rounded-lg text-center font-semibold">
-                    MATERIAS DE SUPORTE
+            <!-- Grid de Botões -->
+            <div class="grid grid-cols-2 gap-5 max-w-xl mx-auto mb-5">
+                <a href="https://drive.google.com/drive/folders/1NEU9nNOFVCmZfAPNsG5W2yHYKYrMSxjk" 
+                   class="menu-button text-white py-3 px-4 rounded-lg text-center shadow-md">
+                    MATERIAS DE<br>SUPORTE
                 </a>
-                <a href="https://chat.whatsapp.com/Fdp71sBJhYBDndAkAYpiis" class="bg-blue-600 text-white py-3 px-6 rounded-lg text-center font-semibold">
-                    GRUPO DE SUPORTE
-                </a>
-            </div>
-
-            <div class="mt-4 grid grid-cols-1 gap-4 max-w-2xl mx-auto">
-                <a href="http://wa.me/244954179989" class="bg-blue-600 text-white py-3 px-6 rounded-lg text-center font-semibold">
-                    COMUNICAR VENDA
+                <a href="https://chat.whatsapp.com/Fdp71sBJhYBDndAkAYpiis" 
+                   class="menu-button text-white py-3 px-4 rounded-lg text-center shadow-md">
+                    GRUPO DE<br>SUPORTE
                 </a>
             </div>
 
-            <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
-                <a href="#" class="bg-blue-600 text-white py-3 px-6 rounded-lg text-center font-semibold">
-                    CONFIGURAÇÃO DO PERFIL
+            <!-- Botão Central -->
+            <div class="flex justify-center mb-5">
+                <a href="http://wa.me/244954179989" 
+                   class="menu-button text-white py-3 px-8 rounded-lg text-center w-64 shadow-md">
+                    COMUNICAR<br>VENDA
                 </a>
-                <a href="#" class="bg-blue-600 text-white py-3 px-6 rounded-lg text-center font-semibold">
+            </div>
+
+            <!-- Últimos Botões -->
+            <div class="grid grid-cols-2 gap-5 max-w-xl mx-auto">
+                <a href="#" 
+                   class="menu-button text-white py-3 px-4 rounded-lg text-center shadow-md">
+                    CONFIGURAÇÃO<br>DO PERFIL
+                </a>
+                <a href="#" 
+                   class="menu-button text-white py-3 px-4 rounded-lg text-center shadow-md">
                     PRODUTOS
                 </a>
             </div>
@@ -45,7 +70,7 @@
 
         <!-- Conteúdo Principal com os Vídeos -->
         <main class="flex-1 p-6">
-            <h2 class="text-2xl font-semibold mb-6 text-center md:text-left">Bem-vindo - Boas Aulas</h2>
+            <h2 class="text-2xl font-semibold mb-6 text-center text-[#e85d04]">Bem-vindo - Boas Aulas</h2>
             <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
                 <iframe class="w-full h-40 md:h-52 rounded-lg shadow-lg" src="https://www.youtube.com/embed/A-3igdrjPPY" frameborder="0" allowfullscreen></iframe>
                 <iframe class="w-full h-40 md:h-52 rounded-lg shadow-lg" src="https://www.youtube.com/embed/OedJh9WbD0g" frameborder="0" allowfullscreen></iframe>
@@ -64,7 +89,9 @@
                 <iframe class="w-full h-40 md:h-52 rounded-lg shadow-lg" src="https://www.youtube.com/embed/60kYxZhOkPU" frameborder="0" allowfullscreen></iframe>
                 <iframe class="w-full h-40 md:h-52 rounded-lg shadow-lg" src="https://www.youtube.com/embed/ba-j4t3VOFc" frameborder="0" allowfullscreen></iframe>
             </section>
-            <button id="logout" class="bg-white text-[#e85d04] py-2 px-4 rounded font-semibold mt-6">Sair</button>
+            <div class="flex justify-center mt-6">
+                <button id="logout" class="menu-button text-white py-2 px-8 rounded-lg">Sair</button>
+            </div>
         </main>
     </div>
 
@@ -72,20 +99,14 @@
         // Verificar autenticação discretamente sem logs
         document.addEventListener("DOMContentLoaded", () => {
             const storedEmail = localStorage.getItem("authenticatedEmail");
-            
-            // Verifica se o usuário está autenticado
             if (!storedEmail) {
-                // Redireciona silenciosamente sem logs
                 window.location.replace("login.html");
             }
         });
 
         // Configuração do botão de logout
         document.getElementById("logout").addEventListener("click", () => {
-            // Limpa o dado de autenticação
             localStorage.removeItem("authenticatedEmail");
-            
-            // Redireciona sem mensagens
             window.location.href = "login.html";
         });
     </script>
