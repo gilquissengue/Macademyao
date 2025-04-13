@@ -9,24 +9,41 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-[#e85d04] text-white">
-    <div class="flex flex-col md:flex-row min-h-screen">
-        <!-- Sidebar -->
-        <aside class="w-full md:w-1/5 bg-[#e85d04] p-6 shadow-lg">
-            <h1 class="text-3xl font-bold text-center md:text-left">Money Academy</h1>
-            <nav class="mt-6 flex flex-col gap-4">
-                <a href="https://drive.google.com/drive/folders/1NEU9nNOFVCmZfAPNsG5W2yHYKYrMSxjk" class="w-full bg-white text-[#e85d04] py-2 rounded font-semibold text-center">Matérias de Suporte</a>
-                <a href="https://chat.whatsapp.com/Fdp71sBJhYBDndAkAYpiis" class="w-full bg-white text-[#e85d04] py-2 rounded font-semibold text-center">Grupo de Suporte</a>
-                <a href="http://wa.me/244954179989" class="w-full bg-white text-[#e85d04] py-2 rounded font-semibold text-center">SUPORTE GERAL (Gilberto Quissengui)</a>
-                <a href="https://wa.me/message/QAMEN5YARSVVG1" class="w-full bg-white text-[#e85d04] py-2 rounded font-semibold text-center">Suporte Assistente (Fernando César)</a>
-            </nav>
-            <div class="mt-6 bg-white text-[#e85d04] p-4 rounded shadow-lg flex flex-col items-center">
-                <h2 class="text-xl font-bold text-center">Sobre o Criador</h2>
-                <img src="gggg.jpg" alt="Foto de Perfil" class="w-24 h-24 rounded-full mt-4">
-                <p class="mt-4 text-center">Gilberto Quissengui é o fundador da Money Academy, dedicado a fornecer educação financeira de qualidade.</p>
+    <div class="flex flex-col min-h-screen">
+        <!-- Nova seção de navegação -->
+        <div class="bg-white p-8 rounded-lg shadow-lg m-6">
+            <!-- Foto do Perfil -->
+            <div class="flex justify-center mb-8">
+                <img src="gggg.jpg" alt="Foto do Perfil" class="w-32 h-32 rounded-full object-cover">
             </div>
-        </aside>
-        
-        <!-- Conteúdo Principal -->
+
+            <!-- Botões -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+                <a href="https://drive.google.com/drive/folders/1NEU9nNOFVCmZfAPNsG5W2yHYKYrMSxjk" class="bg-blue-600 text-white py-3 px-6 rounded-lg text-center font-semibold">
+                    MATERIAS DE SUPORTE
+                </a>
+                <a href="https://chat.whatsapp.com/Fdp71sBJhYBDndAkAYpiis" class="bg-blue-600 text-white py-3 px-6 rounded-lg text-center font-semibold">
+                    GRUPO DE SUPORTE
+                </a>
+            </div>
+
+            <div class="mt-4 grid grid-cols-1 gap-4 max-w-2xl mx-auto">
+                <a href="http://wa.me/244954179989" class="bg-blue-600 text-white py-3 px-6 rounded-lg text-center font-semibold">
+                    COMUNICAR VENDA
+                </a>
+            </div>
+
+            <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
+                <a href="#" class="bg-blue-600 text-white py-3 px-6 rounded-lg text-center font-semibold">
+                    CONFIGURAÇÃO DO PERFIL
+                </a>
+                <a href="#" class="bg-blue-600 text-white py-3 px-6 rounded-lg text-center font-semibold">
+                    PRODUTOS
+                </a>
+            </div>
+        </div>
+
+        <!-- Conteúdo Principal com os Vídeos -->
         <main class="flex-1 p-6">
             <h2 class="text-2xl font-semibold mb-6 text-center md:text-left">Bem-vindo - Boas Aulas</h2>
             <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
@@ -44,32 +61,33 @@
                 <iframe class="w-full h-40 md:h-52 rounded-lg shadow-lg" src="https://www.youtube.com/embed/cCrmHoD8GJQ" frameborder="0" allowfullscreen></iframe>
                 <iframe class="w-full h-40 md:h-52 rounded-lg shadow-lg" src="https://www.youtube.com/embed/OFIjAYXWweU" frameborder="0" allowfullscreen></iframe>
                 <iframe class="w-full h-40 md:h-52 rounded-lg shadow-lg" src="https://www.youtube.com/embed/pEqB96GBeg8" frameborder="0" allowfullscreen></iframe>
-                <iframe class="w-full h-40 md:h-52 rounded-lg shadow-lg" src="https://www.youtube.com/embed/60kYxZhOkPU" frameborder="0" allowfullscreen></iframe> <!-- Aula 14 -->
-                <iframe class="w-full h-40 md:h-52 rounded-lg shadow-lg" src="https://www.youtube.com/embed/ba-j4t3VOFc" frameborder="0" allowfullscreen></iframe> <!-- Aula 15 -->
+                <iframe class="w-full h-40 md:h-52 rounded-lg shadow-lg" src="https://www.youtube.com/embed/60kYxZhOkPU" frameborder="0" allowfullscreen></iframe>
+                <iframe class="w-full h-40 md:h-52 rounded-lg shadow-lg" src="https://www.youtube.com/embed/ba-j4t3VOFc" frameborder="0" allowfullscreen></iframe>
             </section>
             <button id="logout" class="bg-white text-[#e85d04] py-2 px-4 rounded font-semibold mt-6">Sair</button>
         </main>
     </div>
-    <script>
-      // Verificar autenticação discretamente sem logs
-      document.addEventListener("DOMContentLoaded", () => {
-        const storedEmail = localStorage.getItem("authenticatedEmail");
-        
-        // Verifica se o usuário está autenticado
-        if (!storedEmail) {
-            // Redireciona silenciosamente sem logs
-            window.location.replace("login.html");
-        }
-      });
 
-      // Configuração do botão de logout
-      document.getElementById("logout").addEventListener("click", () => {
-        // Limpa o dado de autenticação
-        localStorage.removeItem("authenticatedEmail");
-        
-        // Redireciona sem mensagens
-        window.location.href = "login.html";
-      });
+    <script>
+        // Verificar autenticação discretamente sem logs
+        document.addEventListener("DOMContentLoaded", () => {
+            const storedEmail = localStorage.getItem("authenticatedEmail");
+            
+            // Verifica se o usuário está autenticado
+            if (!storedEmail) {
+                // Redireciona silenciosamente sem logs
+                window.location.replace("login.html");
+            }
+        });
+
+        // Configuração do botão de logout
+        document.getElementById("logout").addEventListener("click", () => {
+            // Limpa o dado de autenticação
+            localStorage.removeItem("authenticatedEmail");
+            
+            // Redireciona sem mensagens
+            window.location.href = "login.html";
+        });
     </script>
 </body>
 </html>
