@@ -88,6 +88,8 @@
                 <iframe class="w-full h-40 md:h-52 rounded-lg shadow-lg" src="https://www.youtube.com/embed/pEqB96GBeg8" frameborder="0" allowfullscreen></iframe>
                 <iframe class="w-full h-40 md:h-52 rounded-lg shadow-lg" src="https://www.youtube.com/embed/60kYxZhOkPU" frameborder="0" allowfullscreen></iframe>
                 <iframe class="w-full h-40 md:h-52 rounded-lg shadow-lg" src="https://www.youtube.com/embed/ba-j4t3VOFc" frameborder="0" allowfullscreen></iframe>
+                <iframe class="w-full h-40 md:h-52 rounded-lg shadow-lg" src="https://www.youtube.com/embed/prC0LWZNEi4" frameborder="0" allowfullscreen></iframe>
+                <iframe class="w-full h-40 md:h-52 rounded-lg shadow-lg" src="https://www.youtube.com/embed/7Ccb6yX5_7I" frameborder="0" allowfullscreen></iframe>
             </section>
             <div class="flex justify-center mt-6">
                 <button id="logout" class="menu-button text-white py-2 px-8 rounded-lg">Sair</button>
@@ -99,7 +101,16 @@
         // Verificar autenticação discretamente sem logs
         document.addEventListener("DOMContentLoaded", () => {
             const storedEmail = localStorage.getItem("authenticatedEmail");
-            if (!storedEmail) {
+            const allowedEmails = [
+                'moosecabila@gmail.com',
+                'mihfaustiny@gmail.com',
+                'Madalenahossi99gmail.com',
+                'criativogs@gmail.com',
+                'honoriofragoso46@gmail.com',
+                'joaquimsegunda@gmail.com'
+            ];
+            
+            if (!storedEmail || !allowedEmails.includes(storedEmail)) {
                 window.location.replace("login.html");
             }
         });
