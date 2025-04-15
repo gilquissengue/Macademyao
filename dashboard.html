@@ -49,7 +49,7 @@
 
             <!-- Botão Central -->
             <div class="flex justify-center mb-5">
-                <a href="http://wa.me/244954179989" 
+                <a href="comunicar-venda.html" 
                    class="menu-button text-white py-3 px-8 rounded-lg text-center w-64 shadow-md">
                     COMUNICAR<br>VENDA
                 </a>
@@ -101,16 +101,7 @@
         // Verificar autenticação discretamente sem logs
         document.addEventListener("DOMContentLoaded", () => {
             const storedEmail = localStorage.getItem("authenticatedEmail");
-            const allowedEmails = [
-                'moosecabila@gmail.com',
-                'mihfaustiny@gmail.com',
-                'Madalenahossi99gmail.com',
-                'criativogs@gmail.com',
-                'honoriofragoso46@gmail.com',
-                'joaquimsegunda@gmail.com'
-            ];
-            
-            if (!storedEmail || !allowedEmails.includes(storedEmail)) {
+            if (!storedEmail) {
                 window.location.replace("login.html");
             }
         });
