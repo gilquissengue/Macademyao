@@ -22,19 +22,26 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(232, 93, 4, 0.3);
         }
+        .hidden-section {
+            display: none;
+        }
     </style>
 </head>
 <body class="bg-white">
     <div class="flex flex-col min-h-screen">
+        <!-- Avatar no topo -->
+        <header class="bg-[#e85d04] text-white py-4 shadow-md">
+            <div class="max-w-6xl mx-auto flex items-center justify-between px-4">
+                <div class="flex items-center">
+                    <img id="header-avatar" src="gggg.jpg" alt="Avatar" class="w-12 h-12 rounded-full object-cover border-2 border-white mr-4">
+                    <span id="header-name" class="text-lg font-semibold">Seu Nome</span>
+                </div>
+                <button id="logout" class="menu-button text-white py-2 px-4 rounded-lg">Sair</button>
+            </div>
+        </header>
+
         <!-- Card Principal -->
         <div class="max-w-2xl mx-auto p-8 m-6">
-            <!-- Foto do Perfil -->
-            <div class="flex justify-center mb-10">
-                <div class="text-center">
-                    <img src="gggg.jpg" alt="Foto do Perfil" class="w-32 h-32 rounded-full object-cover border-4 border-[#e85d04] shadow-lg mb-2">
-                </div>
-            </div>
-
             <!-- Grid de Botões -->
             <div class="grid grid-cols-2 gap-5 max-w-xl mx-auto mb-5">
                 <a href="https://drive.google.com/drive/folders/1NEU9nNOFVCmZfAPNsG5W2yHYKYrMSxjk" 
@@ -57,14 +64,34 @@
 
             <!-- Últimos Botões -->
             <div class="grid grid-cols-2 gap-5 max-w-xl mx-auto">
-                <a href="#" 
+                <a href="#" id="profile-settings-btn" 
                    class="menu-button text-white py-3 px-4 rounded-lg text-center shadow-md">
                     CONFIGURAÇÃO<br>DO PERFIL
                 </a>
-                <a href="#" 
+                <a href="#" id="products-tab" 
                    class="menu-button text-white py-3 px-4 rounded-lg text-center shadow-md">
                     PRODUTOS
                 </a>
+            </div>
+        </div>
+
+        <!-- Seção de Configuração do Perfil -->
+        <div id="profile-settings" class="hidden-section max-w-2xl mx-auto p-8 m-6 bg-gray-100 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold text-center text-[#e85d04] mb-6">Configuração do Perfil</h2>
+            <div class="flex justify-center mb-10">
+                <div class="text-center">
+                    <!-- Foto do Perfil -->
+                    <img id="profile-picture" src="gggg.jpg" alt="Foto do Perfil" class="w-32 h-32 rounded-full object-cover border-4 border-[#e85d04] shadow-lg mb-2">
+                    <!-- Botão para alterar a foto -->
+                    <input type="file" id="upload-picture" accept="image/*" class="hidden">
+                    <button onclick="document.getElementById('upload-picture').click()" class="menu-button text-white py-2 px-4 mt-2">Alterar Foto</button>
+                </div>
+            </div>
+
+            <!-- Campo para alterar o nome -->
+            <div class="flex justify-center mb-5">
+                <input id="user-name" type="text" placeholder="Digite seu nome" class="border border-gray-300 rounded-lg px-4 py-2 w-64 text-center" value="Seu Nome">
+                <button id="save-name" class="menu-button text-white py-2 px-4 ml-2">Salvar Nome</button>
             </div>
         </div>
 
@@ -72,6 +99,7 @@
         <main class="flex-1 p-6">
             <h2 class="text-2xl font-semibold mb-6 text-center text-[#e85d04]">Bem-vindo - Boas Aulas</h2>
             <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+                <!-- Vídeos do YouTube -->
                 <iframe class="w-full h-40 md:h-52 rounded-lg shadow-lg" src="https://www.youtube.com/embed/A-3igdrjPPY" frameborder="0" allowfullscreen></iframe>
                 <iframe class="w-full h-40 md:h-52 rounded-lg shadow-lg" src="https://www.youtube.com/embed/OedJh9WbD0g" frameborder="0" allowfullscreen></iframe>
                 <iframe class="w-full h-40 md:h-52 rounded-lg shadow-lg" src="https://www.youtube.com/embed/IfVf4E_TcvQ" frameborder="0" allowfullscreen></iframe>
@@ -98,18 +126,76 @@
     </div>
 
     <script>
-        // Verificar autenticação discretamente sem logs
         document.addEventListener("DOMContentLoaded", () => {
-            const storedEmail = localStorage.getItem("authenticatedEmail");
-            if (!storedEmail) {
-                window.location.replace("login.html");
-            }
-        });
+            // Obter o e-mail autenticado do localStorage
+            const authenticatedEmail = localStorage.getItem("authenticatedEmail");
 
-        // Configuração do botão de logout
-        document.getElementById("logout").addEventListener("click", () => {
-            localStorage.removeItem("authenticatedEmail");
-            window.location.href = "login.html";
+            if (!authenticatedEmail) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            // Carregar dados específicos do e-mail autenticado
+            const userDataKey = `userData_${authenticatedEmail}`;
+            const userData = JSON.parse(localStorage.getItem(userDataKey)) || {};
+
+            if (userData.name) {
+                document.getElementById("header-name").textContent = userData.name;
+                document.getElementById("user-name").value = userData.name;
+            }
+
+            if (userData.picture) {
+                document.getElementById("header-avatar").src = userData.picture;
+                document.getElementById("profile-picture").src = userData.picture;
+            }
+
+            // Redirecionar para a página de produtos ao clicar na aba "Produtos"
+            document.getElementById("products-tab").addEventListener("click", (e) => {
+                e.preventDefault();
+                window.location.href = "/package.html";
+            });
+
+            // Mostrar a seção de configuração do perfil ao clicar no botão
+            document.getElementById("profile-settings-btn").addEventListener("click", (e) => {
+                e.preventDefault();
+                document.getElementById("profile-settings").classList.toggle("hidden-section");
+            });
+
+            // Salvar o nome no localStorage
+            document.getElementById("save-name").addEventListener("click", () => {
+                const userName = document.getElementById("user-name").value.trim();
+                if (userName) {
+                    userData.name = userName;
+                    localStorage.setItem(userDataKey, JSON.stringify(userData));
+                    document.getElementById("header-name").textContent = userName;
+                    alert("Nome salvo com sucesso!");
+                } else {
+                    alert("Por favor, insira um nome válido.");
+                }
+            });
+
+            // Alterar a foto de perfil
+            document.getElementById("upload-picture").addEventListener("change", (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const imageUrl = e.target.result;
+                        userData.picture = imageUrl;
+                        localStorage.setItem(userDataKey, JSON.stringify(userData));
+                        document.getElementById("header-avatar").src = imageUrl;
+                        document.getElementById("profile-picture").src = imageUrl;
+                        alert("Foto alterada com sucesso!");
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Configuração do botão de logout
+            document.getElementById("logout").addEventListener("click", () => {
+                localStorage.removeItem("authenticatedEmail");
+                window.location.href = "login.html";
+            });
         });
     </script>
 </body>
