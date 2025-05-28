@@ -474,125 +474,108 @@
           ...new Set(allowedEmails.map((email) => email.trim().toLowerCase())),
         ];
     
-       
-        document
-          .getElementById("login-btn")
-          .addEventListener("click", async (e) => {
-            e.preventDefault();
-            const email = document
-              .getElementById("email")
-              .value.trim()
-              .toLowerCase();
-            const password = document.getElementById("password").value;
-            const errorElement = document.getElementById("error-message");
-            errorElement.style.display = "none";
+        // Função de login centralizada
+        async function handleLogin() {
+          const email = document.getElementById("email").value.trim().toLowerCase();
+          const password = document.getElementById("password").value;
+          const errorElement = document.getElementById("error-message");
+          errorElement.style.display = "none";
 
-            // Validação básica
-            if (!email || !email.includes("@")) {
-              errorElement.textContent = "⚠️ Digite um e-mail válido";
-              errorElement.style.display = "block";
-              return;
-            }
+          // Validação básica
+          if (!email || !email.includes("@")) {
+            errorElement.textContent = "⚠️ Digite um e-mail válido";
+            errorElement.style.display = "block";
+            return;
+          }
 
-            // Validação de senha (exigir senha para qualquer usuário)
-            if (!password) {
-              errorElement.textContent = "⚠️ Digite sua senha";
-              errorElement.style.display = "block";
-              return;
-            }
+          // Validação de senha (exigir senha para qualquer usuário)
+          if (!password) {
+            errorElement.textContent = "⚠️ Digite sua senha";
+            errorElement.style.display = "block";
+            return;
+          }
 
-            // Validação de comprimento mínimo da senha (4 caracteres)
-            if (password.length < 4) {
-              errorElement.textContent =
-                "⚠️ A senha deve ter pelo menos 4 caracteres";
-              errorElement.style.display = "block";
-              return;
-            }
+          // Validação de comprimento mínimo da senha (4 caracteres)
+          if (password.length < 4) {
+            errorElement.textContent = "⚠️ A senha deve ter pelo menos 4 caracteres";
+            errorElement.style.display = "block";
+            return;
+          }
 
-            // Verifica se o e-mail está na lista de permitidos
-            if (normalizedAllowedEmails.includes(email)) {
-              // Para e-mails autorizados, qualquer senha é aceita, desde que tenha sido digitada
+          // Verifica se o e-mail está na lista de permitidos
+          if (normalizedAllowedEmails.includes(email)) {
+            errorElement.textContent = "⏳ Verificando...";
+            errorElement.style.display = "block";
+            errorElement.style.color = "#e85d04";
+            setTimeout(() => {
+              alert("✅ Login realizado com sucesso!\n\nBem-vindo à Money Academy.");
+              localStorage.setItem("authenticatedEmail", email);
+              window.location.href = "dashboard.html";
+            }, 1200);
+            return;
+          }
 
-              // Simula um pequeno atraso para parecer que está verificando
-              errorElement.textContent = "⏳ Verificando...";
-              errorElement.style.display = "block";
-              errorElement.style.color = "#e85d04"; // Cor laranja para indicar processamento
-
-              setTimeout(() => {
-                // Mostra mensagem de sucesso
-                alert(
-                  "✅ Login realizado com sucesso!\n\nBem-vindo à Money Academy."
-                );
-
-                // Configura persistência
-                localStorage.setItem("authenticatedEmail", email);
-
-                // Redireciona para o dashboard
-                window.location.href = "dashboard.html";
-              }, 1200);
-
-              return;
-            }
-
-            // Se não estiver na lista local, simula uma verificação na API
+          // Se não estiver na lista local, simula uma verificação na API
+          try {
+            errorElement.textContent = "⏳ Verificando...";
+            errorElement.style.display = "block";
+            errorElement.style.color = "#e85d04";
+            let responseOk = false;
             try {
-              errorElement.textContent = "⏳ Verificando...";
-              errorElement.style.display = "block";
-              errorElement.style.color = "#e85d04";
-
-              let responseOk = false;
-
-              try {
-                const response = await fetch(
-                  "https://macademy-api.onrender.com/auth/login",
-                  {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                      Accept: "application/json",
-                    },
-                    credentials: "include",
-                    body: JSON.stringify({ email, password }),
-                  }
-                );
-
-                const data = await response.json();
-                responseOk = response.ok && data.success;
-
-                if (responseOk) {
-                  localStorage.setItem("authenticatedEmail", email);
-                  alert(
-                    "✅ Login realizado com sucesso!\n\nBem-vindo à Money Academy."
-                  );
-                  window.location.href = "dashboard.html";
-                  return;
+              const response = await fetch(
+                "https://macademy-api.onrender.com/auth/login",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                  },
+                  credentials: "include",
+                  body: JSON.stringify({ email, password }),
                 }
-              } catch (networkErr) {
-                console.log("Verificando apenas autorização local");
-
-              setTimeout(() => {
-                errorElement.style.color = "red";
-                errorElement.textContent =
-                  "🔒 Acesso não autorizado. E-mail ou senha incorretos.";
-                errorElement.style.display = "block";
-              }, 1500);
-            } catch (error) {
-              setTimeout(() => {
-                errorElement.style.color = "red";
-                errorElement.textContent =
-                  "🔒 Acesso não autorizado. Verifique suas credenciais.";
-                errorElement.style.display = "block";
-              }, 1500);
+              );
+              const data = await response.json();
+              responseOk = response.ok && data.success;
+              if (responseOk) {
+                localStorage.setItem("authenticatedEmail", email);
+                alert("✅ Login realizado com sucesso!\n\nBem-vindo à Money Academy.");
+                window.location.href = "dashboard.html";
+                return;
+              }
+            } catch (networkErr) {
+              // Falha de rede ou API
             }
-          });
+            setTimeout(() => {
+              errorElement.style.color = "red";
+              errorElement.textContent = "🔒 Acesso não autorizado. E-mail ou senha incorretos.";
+              errorElement.style.display = "block";
+            }, 1500);
+          } catch (error) {
+            setTimeout(() => {
+              errorElement.style.color = "red";
+              errorElement.textContent = "🔒 Acesso não autorizado. Verifique suas credenciais.";
+              errorElement.style.display = "block";
+            }, 1500);
+          }
+        }
+
+        // Clique no botão
+        document.getElementById("login-btn").addEventListener("click", (e) => {
+          e.preventDefault();
+          handleLogin();
+        });
+
+        // Pressionar Enter no campo de senha também faz login
+        document.getElementById("password").addEventListener("keyup", (e) => {
+          if (e.key === "Enter") {
+            handleLogin();
+          }
+        });
 
         // Função para alternar a visibilidade da senha
         window.togglePassword = function () {
           const passwordInput = document.getElementById("password");
-          const type =
-            passwordInput.getAttribute("type") === "password"
-              ? "text"
-              : "password";
+          const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
           passwordInput.setAttribute("type", type);
         };
       });
