@@ -452,25 +452,25 @@
           "sunflowerajoiapreciosa@gmail.com",
           "tavares@gmail.com",
           "liohe447@gmail.com",
-"micaelamiramayembe@gmail.com",
-"moreiramendesfilipe42@gmail.com",
-"eac.2@hotmail.com",
-"anselmoflorindo434@gmail.com",
-"viegaspaloma7@gmail.com",
-"nelomanuel093@gmail.com",
- 
- "heldariodossantos98@gmail.com",
+          "micaelamiramayembe@gmail.com",
+          "moreiramendesfilipe42@gmail.com",
+          "eac.2@hotmail.com",
+          "anselmoflorindo434@gmail.com",
+          "viegaspaloma7@gmail.com",
+          "nelomanuel093@gmail.com",
 
- "castrolizjosemiguel@gmail.com",
+          "heldariodossantos98@gmail.com",
 
- "mrmbapolloangelo@gmail.com",
+          "castrolizjosemiguel@gmail.com",
 
-"neumaventurafrancisco@gmail.com",
-"pedrotudo677@gmail.com",
-"angelinagungui26@gmail.com",
-"mayaprincesa73@gmail.com",
-"Joaquimbarão113@gmail.com",
-"Pedrohelena923@gmail.com",
+          "mrmbapolloangelo@gmail.com",
+
+          "neumaventurafrancisco@gmail.com",
+          "pedrotudo677@gmail.com",
+          "angelinagungui26@gmail.com",
+          "mayaprincesa73@gmail.com",
+          "Joaquimbarão113@gmail.com",
+          "Pedrohelena923@gmail.com",
           "publicidademundial661@gmail.com",
           "Pedrohelena923@gmail.com",
           "finezad49@gmail.com",
@@ -494,6 +494,8 @@
           "vinogario90@gmail.com",
           "vladimiromutekaao@gmail.com",
           "vundjap@gmail.com",
+          "pr3135749@gmail.com",
+          "Fernandoelisabessa613@gmail.com",
           "joaomandume9@gmail.com",
           "palmirasate857@gmail.com",
           "Vieradasilva230@icloud.com",
@@ -503,15 +505,18 @@
           "kwamimondelane@gmail.com",
           "clevelantesala21@gmail.com", // <-- Email adicionado aqui
         ];
-    
+
         // Normaliza a lista de e-mails permitidos para comparação
         const normalizedAllowedEmails = [
           ...new Set(allowedEmails.map((email) => email.trim().toLowerCase())),
         ];
-    
+
         // Função de login centralizada
         async function handleLogin() {
-          const email = document.getElementById("email").value.trim().toLowerCase();
+          const email = document
+            .getElementById("email")
+            .value.trim()
+            .toLowerCase();
           const password = document.getElementById("password").value;
           const errorElement = document.getElementById("error-message");
           errorElement.style.display = "none";
@@ -532,7 +537,8 @@
 
           // Validação de comprimento mínimo da senha (4 caracteres)
           if (password.length < 4) {
-            errorElement.textContent = "⚠️ A senha deve ter pelo menos 4 caracteres";
+            errorElement.textContent =
+              "⚠️ A senha deve ter pelo menos 4 caracteres";
             errorElement.style.display = "block";
             return;
           }
@@ -543,7 +549,9 @@
             errorElement.style.display = "block";
             errorElement.style.color = "#e85d04";
             setTimeout(() => {
-              alert("✅ Login realizado com sucesso!\n\nBem-vindo à Money Academy.");
+              alert(
+                "✅ Login realizado com sucesso!\n\nBem-vindo à Money Academy."
+              );
               localStorage.setItem("authenticatedEmail", email);
               window.location.href = "dashboard.html";
             }, 1200);
@@ -573,7 +581,9 @@
               responseOk = response.ok && data.success;
               if (responseOk) {
                 localStorage.setItem("authenticatedEmail", email);
-                alert("✅ Login realizado com sucesso!\n\nBem-vindo à Money Academy.");
+                alert(
+                  "✅ Login realizado com sucesso!\n\nBem-vindo à Money Academy."
+                );
                 window.location.href = "dashboard.html";
                 return;
               }
@@ -582,13 +592,15 @@
             }
             setTimeout(() => {
               errorElement.style.color = "red";
-              errorElement.textContent = "🔒 Acesso não autorizado. E-mail ou senha incorretos.";
+              errorElement.textContent =
+                "🔒 Acesso não autorizado. E-mail ou senha incorretos.";
               errorElement.style.display = "block";
             }, 1500);
           } catch (error) {
             setTimeout(() => {
               errorElement.style.color = "red";
-              errorElement.textContent = "🔒 Acesso não autorizado. Verifique suas credenciais.";
+              errorElement.textContent =
+                "🔒 Acesso não autorizado. Verifique suas credenciais.";
               errorElement.style.display = "block";
             }, 1500);
           }
@@ -610,7 +622,10 @@
         // Função para alternar a visibilidade da senha
         window.togglePassword = function () {
           const passwordInput = document.getElementById("password");
-          const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+          const type =
+            passwordInput.getAttribute("type") === "password"
+              ? "text"
+              : "password";
           passwordInput.setAttribute("type", type);
         };
       });
